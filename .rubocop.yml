@@ -1,5 +1,8 @@
 require:
   - rubocop-airbnb
+  - rubocop-rails
+  - rubocop-rspec_rails
+  - rubocop-factory_bot
 
 inherit_from:
   - .rubocop_airbnb.yml
