@@ -1,0 +1,14 @@
+#!/bin/bash -e
+
+echo "bundle install..."
+bundle check || bundle install --jobs 4
+yarn install
+
+./bin/rails db:prepare
+./bin/rake db:migrate db:seed
+
+if [ "${RAILS_ENV}" == "production" ]; then
+  bundle exec rails assets:precompile
+fi
+
+exec "${@}"
