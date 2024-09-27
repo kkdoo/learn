@@ -8,14 +8,18 @@ class RootApi < Grape::API
     end
   end
 
-  rescue_from ActiveRecord::RecordNotFound do |e|
-    error!({ status: 404, message: "Resource not found" }, 404)
-  end
-
-  rescue_from ActiveRecord::RecordInvalid do |error|
+  rescue_from Grape::Exceptions::ValidationErrors do |error|
     Rails.logger.debug error
     Rails.logger.debug error.backtrace.join("\n\t")
-    message = error.record.errors.full_messages.join(", ")
-    error!({ status: 400, message: }, 400)
+
+    errors = error.map do |attrs, message|
+      attr = attrs.first
+      { name: attr, messages: [ message.to_s ] }
+    end
+    error!({ status: 400, errors: }, 400)
+  end
+
+  rescue_from ActiveRecord::RecordNotFound do |e|
+    error!({ status: 404, errors: ['Resource not found'] }, 404)
   end
 end

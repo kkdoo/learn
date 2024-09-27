@@ -3,6 +3,45 @@ openapi: 3.0.1
 info:
   title: API V1
   version: v1
+components:
+  schemas:
+    author_entity:
+      type: object
+      properties:
+        id:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+      required:
+      - id
+      - first_name
+      - last_name
+    error_message:
+      type: object
+      properties:
+        name:
+          type: string
+        messages:
+          type: array
+          items:
+            type: string
+      required:
+      - name
+      - messages
+    errors_resp:
+      type: object
+      properties:
+        status:
+          type: integer
+        errors:
+          type: array
+          items:
+            "$ref": "#/components/schemas/error_message"
+      required:
+      - status
+      - errors
 paths:
   "/v1/authors":
     post:
@@ -15,30 +54,27 @@ paths:
           description: created a new author
           content:
             application/json:
+              examples:
+                example:
+                  value:
+                    id: 0617ff1f-294f-4c14-a56b-375097d3e810
+                    first_name: Bob
+                    last_name: Marley
               schema:
-                type: object
-                properties:
-                  id:
-                    type: string
-                  first_name:
-                    type: string
-                  last_name:
-                    type: string
-                required:
-                - id
-                - first_name
-                - last_name
+                "$ref": "#/components/schemas/author_entity"
         '400':
           description: invalid request
           content:
             application/json:
+              examples:
+                example:
+                  value:
+                    status: 400
+                    errors:
+                      name: last_name
+                      message: last_name is missing
               schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                required:
-                - error
+                "$ref": "#/components/schemas/errors_resp"
       requestBody:
         content:
           application/json:
@@ -58,7 +94,7 @@ paths:
                 value:
                   first_name: Bob
                   last_name: Marley
-              author_invalid_params:
+              author_missing_params:
                 summary: Validation error
                 value:
                   first_name: Bob

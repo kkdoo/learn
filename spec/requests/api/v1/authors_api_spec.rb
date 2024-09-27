@@ -20,13 +20,13 @@ describe 'Authors API' do
         name: 'author_create', summary: 'Successful create'
 
       response '201', 'created a new author' do
-        schema type: :object,
-          properties: {
-            id: { type: :string },
-            first_name: { type: :string },
-            last_name: { type: :string },
-          },
-          required: [ 'id', 'first_name', 'last_name' ]
+        schema '$ref' => '#/components/schemas/author_entity'
+
+        example 'application/json', :example, {
+          id: SecureRandom.uuid,
+          first_name: 'Bob',
+          last_name: 'Marley',
+        }
 
         let(:author) { { first_name: 'Bob', last_name: 'Marley' } }
 
@@ -37,11 +37,15 @@ describe 'Authors API' do
         name: 'author_missing_params', summary: 'Validation error'
 
       response '400', 'invalid request' do
-        schema type: :object,
-          properties: {
-            error: { type: :string },
-          },
-          required: [ 'error' ]
+        schema '$ref' => '#/components/schemas/errors_resp'
+
+        example 'application/json', :example, {
+          status: 400,
+          errors: {
+            name: 'last_name',
+            message: 'last_name is missing',
+          }
+        }
 
         let(:author) { { first_name: 'Bob' } }
 

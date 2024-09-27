@@ -21,6 +21,40 @@ RSpec.configure do |config|
         title: 'API V1',
         version: 'v1'
       },
+      components: {
+        schemas: {
+          author_entity: {
+            type: :object,
+            properties: {
+              id: { type: :string },
+              first_name: { type: :string },
+              last_name: { type: :string },
+            },
+            required: [ 'id', 'first_name', 'last_name' ],
+          },
+          error_message: {
+            type: 'object',
+            properties: {
+              name: { type: 'string' },
+              messages: { type: 'array', items: { type: 'string' } },
+            },
+            required: [ 'name', 'messages' ]
+          },
+          errors_resp: {
+            type: 'object',
+            properties: {
+              status: { type: 'integer' },
+              errors: {
+                oneOf: [
+                  { type: 'array', items: { type: 'string' }},
+                  { type: 'array', items: { '$ref' => '#/components/schemas/error_message' }},
+                ],
+              },
+            },
+            required: [ 'status', 'errors' ],
+          }
+        }
+      },
       paths: {},
       servers: [
         {
