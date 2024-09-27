@@ -14,4 +14,8 @@ RSpec.describe Competency, type: :model do
     it { should have_many(:competency_courses) }
     it { should have_many(:courses).through(:competency_courses).dependent(:destroy) }
   end
+
+  describe 'validations' do
+    it { should validate_presence_of(:name) }
+  end
 end
