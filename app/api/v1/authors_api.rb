@@ -23,5 +23,10 @@ class V1::AuthorsApi < Grape::API
       @authors = Authors::ListService.new.call
       present @authors, with: Entities::AuthorEntity
     end
+
+    delete ':id' do
+      @author = Authors::DeleteService.new(params[:id]).call
+      present @author.as_json(only: [:id]).as_json
+    end
   end
 end

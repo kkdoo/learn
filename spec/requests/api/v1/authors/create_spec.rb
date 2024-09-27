@@ -2,7 +2,7 @@ require 'swagger_helper'
 
 describe 'Authors API' do
   path '/v1/authors' do
-    post 'Creates a author' do
+    post 'Creates an author' do
       tags 'Authors'
       consumes 'application/json'
       produces 'application/json'

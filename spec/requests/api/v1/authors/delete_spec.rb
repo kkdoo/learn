@@ -2,7 +2,7 @@ require 'swagger_helper'
 
 describe 'Authors API' do
   path '/v1/authors/{id}' do
-    get 'Get an author by id' do
+    delete 'Delete an author' do
       tags 'Authors'
       consumes 'application/json'
       produces 'application/json'
@@ -10,10 +10,14 @@ describe 'Authors API' do
       parameter name: :id, in: :path, type: :string
 
       request_body_example value: { },
-        name: 'author_get', summary: 'Success error'
+        name: 'author_delete', summary: 'Successful delete'
 
-      response '200', 'find author by id' do
-        schema '$ref' => '#/components/schemas/author_entity'
+      response '200', 'delete an author by id' do
+        schema type: 'object',
+        properties: {
+          id: { type: 'string' }
+        },
+        required: [ 'id' ]
 
         example 'application/json', :example, {
           id: SecureRandom.uuid,
@@ -24,10 +28,18 @@ describe 'Authors API' do
         let(:author) { create(:author) }
         let(:id) { author.id }
 
+        before do
+          expect(Authors::DeleteService).to receive(:new).with(id).
+            and_call_original
+        end
+
         run_test!
       end
 
-      response '404', 'invalid request' do
+      request_body_example value: { first_name: 'Bob' },
+        name: 'author_missing_params', summary: 'Validation error'
+
+      response '404', 'author not found' do
         schema '$ref' => '#/components/schemas/errors_resp'
 
         example 'application/json', :example, {
@@ -36,6 +48,11 @@ describe 'Authors API' do
         }
 
         let(:id) { 'invalid' }
+
+        before do
+          expect(Authors::DeleteService).to receive(:new).with(id).
+            and_call_original
+        end
 
         run_test! do |response|
           data = JSON.parse(response.body)
