@@ -19,7 +19,14 @@ class RootApi < Grape::API
     error!({ status: 400, errors: }, 400)
   end
 
-  rescue_from ActiveRecord::RecordNotFound do |e|
+  rescue_from ActiveRecord::RecordNotFound do |error|
     error!({ status: 404, errors: ['Resource not found'] }, 404)
+  end
+
+  rescue_from :all do |error|
+    Rails.logger.debug error
+    Rails.logger.debug error.backtrace.join("\n\t")
+
+    error!({ status: 500, errors: ['Internal error'] }, 500)
   end
 end

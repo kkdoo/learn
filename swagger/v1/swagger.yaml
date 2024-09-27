@@ -36,28 +36,37 @@ components:
         status:
           type: integer
         errors:
-          type: array
-          items:
-            "$ref": "#/components/schemas/error_message"
+          oneOf:
+          - type: array
+            items:
+              type: string
+          - type: array
+            items:
+              "$ref": "#/components/schemas/error_message"
       required:
       - status
       - errors
 paths:
-  "/v1/authors":
-    post:
-      summary: Creates a author
+  "/v1/authors/{id}":
+    get:
+      summary: Get a author by id
       tags:
       - Authors
-      parameters: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
       responses:
-        '201':
+        '200':
           description: created a new author
           content:
             application/json:
               examples:
                 example:
                   value:
-                    id: 0617ff1f-294f-4c14-a56b-375097d3e810
+                    id: 3beedd93-b338-4283-84d9-fa7a2b5de335
                     first_name: Bob
                     last_name: Marley
               schema:
@@ -75,29 +84,6 @@ paths:
                       message: last_name is missing
               schema:
                 "$ref": "#/components/schemas/errors_resp"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                first_name:
-                  type: string
-                last_name:
-                  type: string
-              required:
-              - first_name
-              - last_name
-            examples:
-              author_create:
-                summary: Successful create
-                value:
-                  first_name: Bob
-                  last_name: Marley
-              author_missing_params:
-                summary: Validation error
-                value:
-                  first_name: Bob
 servers:
 - url: http://{defaultHost}/api
   variables:

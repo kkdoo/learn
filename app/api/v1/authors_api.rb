@@ -15,5 +15,9 @@ class V1::AuthorsApi < Grape::API
       @author = Author.create!(permitted_params)
       present @author, with: Entities::AuthorEntity
     end
+
+    get ':id'
+
+    get
   end
 end
