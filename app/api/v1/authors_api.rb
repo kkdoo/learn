@@ -19,6 +19,9 @@ class V1::AuthorsApi < Grape::API
       present @author, with: Entities::AuthorEntity
     end
 
-    get
+    get do
+      @authors = Authors::ListService.new.call
+      present @authors, with: Entities::AuthorEntity
+    end
   end
 end

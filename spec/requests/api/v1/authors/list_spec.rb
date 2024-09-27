@@ -21,9 +21,16 @@ describe 'Authors API' do
           }
         ]
 
-        let!(:author) { create(:author) }
+        let!(:author) { create_list(:author, 2) }
 
-        run_test!
+        before do
+          expect(Authors::ListService).to receive(:new).and_call_original
+        end
+
+        run_test! do |response|
+          data = JSON.parse(response.body)
+          expect(data.count).to eq(2)
+        end
       end
     end
   end
