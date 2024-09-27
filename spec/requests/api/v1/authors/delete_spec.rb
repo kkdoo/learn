@@ -14,10 +14,10 @@ describe 'Authors API' do
 
       response '200', 'delete an author by id' do
         schema type: 'object',
-        properties: {
-          id: { type: 'string' }
-        },
-        required: [ 'id' ]
+          properties: {
+            id: { type: 'string' }
+          },
+          required: [ 'id' ]
 
         example 'application/json', :example, {
           id: SecureRandom.uuid,
