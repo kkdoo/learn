@@ -32,10 +32,7 @@ describe 'Authors API' do
 
         example 'application/json', :example, {
           status: 404,
-          errors: {
-            name: 'last_name',
-            message: 'last_name is missing',
-          }
+          errors: ['Resource not found']
         }
 
         let(:id) { 'invalid' }

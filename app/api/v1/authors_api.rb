@@ -14,7 +14,10 @@ class V1::AuthorsApi < Grape::API
       present @author, with: Entities::AuthorEntity
     end
 
-    get ':id'
+    get ':id' do
+      @author = Authors::GetService.new(params[:id]).call
+      present @author, with: Entities::AuthorEntity
+    end
 
     get
   end
