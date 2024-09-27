@@ -44,6 +44,7 @@ group :development, :test do
   gem "brakeman", require: false
 
   gem 'rubocop-airbnb'
+  gem 'rubocop-rspec'
   gem 'rspec-rails'
   gem 'factory_bot_rails'
 end
@@ -56,3 +57,7 @@ end
 
 gem "foreman"
 gem 'rswag'
+gem 'grape'
+gem 'grape-entity'
+# not part of ruby 3.3.5 (required by rswag)
+gem 'ostruct'

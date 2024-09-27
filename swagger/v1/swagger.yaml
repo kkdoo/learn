@@ -1,0 +1,69 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/v1/authors":
+    post:
+      summary: Creates a author
+      tags:
+      - Authors
+      parameters: []
+      responses:
+        '201':
+          description: created a new author
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  first_name:
+                    type: string
+                  last_name:
+                    type: string
+                required:
+                - id
+                - first_name
+                - last_name
+        '400':
+          description: invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                - error
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+              required:
+              - first_name
+              - last_name
+            examples:
+              author_create:
+                summary: Successful create
+                value:
+                  first_name: Bob
+                  last_name: Marley
+              author_invalid_params:
+                summary: Validation error
+                value:
+                  first_name: Bob
+servers:
+- url: http://{defaultHost}/api
+  variables:
+    defaultHost:
+      default: localhost:3000
