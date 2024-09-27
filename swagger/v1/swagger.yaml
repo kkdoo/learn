@@ -60,30 +60,50 @@ paths:
           type: string
       responses:
         '200':
-          description: created a new author
+          description: find author by id
           content:
             application/json:
               examples:
                 example:
                   value:
-                    id: 3beedd93-b338-4283-84d9-fa7a2b5de335
+                    id: 63136bd9-2deb-4db9-b5ad-4eeab55c21bd
                     first_name: Bob
                     last_name: Marley
               schema:
                 "$ref": "#/components/schemas/author_entity"
-        '400':
+        '404':
           description: invalid request
           content:
             application/json:
               examples:
                 example:
                   value:
-                    status: 400
+                    status: 404
                     errors:
                       name: last_name
                       message: last_name is missing
               schema:
                 "$ref": "#/components/schemas/errors_resp"
+  "/v1/authors":
+    get:
+      summary: Get authors list
+      tags:
+      - Authors
+      responses:
+        '200':
+          description: list all authors
+          content:
+            application/json:
+              examples:
+                example:
+                  value:
+                  - id: e0ff6567-bfe3-430a-b5a8-cbd6f1279fb3
+                    first_name: Bob
+                    last_name: Marley
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/author_entity"
 servers:
 - url: http://{defaultHost}/api
   variables:

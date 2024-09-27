@@ -30,6 +30,10 @@ describe 'Authors API' do
 
         let(:author) { { first_name: 'Bob', last_name: 'Marley' } }
 
+        before do
+          expect(Authors::CreateService).to receive(:new).and_call_original
+        end
+
         run_test!
       end
 
@@ -48,6 +52,10 @@ describe 'Authors API' do
         }
 
         let(:author) { { first_name: 'Bob' } }
+
+        before do
+          expect(Authors::CreateService).to_not receive(:new)
+        end
 
         run_test!
       end

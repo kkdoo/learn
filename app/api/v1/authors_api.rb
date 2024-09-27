@@ -10,9 +10,7 @@ class V1::AuthorsApi < Grape::API
       requires :last_name, type: String
     end
     post do
-      permitted_params = declared_params.permit(:first_name, :last_name)
-
-      @author = Author.create!(permitted_params)
+      @author = Authors::CreateService.new(declared_params).call
       present @author, with: Entities::AuthorEntity
     end
 
