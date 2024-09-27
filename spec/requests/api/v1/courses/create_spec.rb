@@ -44,7 +44,7 @@ describe 'Courses API' do
         example 'application/json', :example, {
           status: 400,
           errors: {
-            name: 'name',
+            name: 'author_id',
             messages: ['is missing'],
           },
         }

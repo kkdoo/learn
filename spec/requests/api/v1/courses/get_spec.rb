@@ -28,7 +28,7 @@ describe 'Courses API' do
         run_test!
       end
 
-      response '404', 'invalid request' do
+      response '404', 'unknown course request' do
         schema '$ref' => '#/components/schemas/errors_resp'
 
         example 'application/json', :example, {
