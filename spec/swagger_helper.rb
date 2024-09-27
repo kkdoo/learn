@@ -32,6 +32,15 @@ RSpec.configure do |config|
             },
             required: ['id', 'first_name', 'last_name'],
           },
+          course_entity: {
+            type: :object,
+            properties: {
+              id: { type: :string },
+              name: { type: :string },
+              description: { type: :string },
+            },
+            required: ['id', 'first_name', 'last_name'],
+          },
           error_message: {
             type: 'object',
             properties: {
