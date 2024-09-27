@@ -28,5 +28,7 @@ class V1::AuthorsApi < Grape::API
       @author = Authors::DeleteService.new(params[:id]).call
       present @author.as_json(only: [:id]).as_json
     end
+
+    put ':id'
   end
 end
