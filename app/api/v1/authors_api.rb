@@ -29,6 +29,13 @@ class V1::AuthorsApi < Grape::API
       present @author.as_json(only: [:id]).as_json
     end
 
-    put ':id'
+    params do
+      optional :first_name, type: String
+      optional :last_name, type: String
+    end
+    put ':id' do
+      @author = Authors::UpdateService.new(params[:id], declared_params).call
+      present @author, with: Entities::AuthorEntity
+    end
   end
 end

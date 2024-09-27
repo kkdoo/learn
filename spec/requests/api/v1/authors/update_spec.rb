@@ -14,10 +14,10 @@ describe 'Authors API' do
           first_name: { type: :string },
           last_name: { type: :string }
         },
-        required: [ 'first_name', 'last_name' ]
+        required: [ 'id', 'first_name', 'last_name' ]
       }
 
-      request_body_example value: { },
+      request_body_example value: { first_name: 'Bob', last_name: 'Marley' },
         name: 'author_update', summary: 'Successful update'
 
       response '200', 'update an author by id' do
@@ -30,14 +30,17 @@ describe 'Authors API' do
         }
 
         let(:author) { create(:author) }
-        let(:author_params) { { first_name: 'John' } }
+        let(:author_params) { { first_name: 'John', last_name: 'Snow' } }
         let(:id) { author.id }
+
+        before do
+          expect(Authors::UpdateService).to receive(:new).
+            with(id, action_params(author_params)).
+            and_call_original
+        end
 
         run_test!
       end
-
-      request_body_example value: { first_name: 'Bob' },
-        name: 'author_missing_params', summary: 'Validation error'
 
       response '404', 'author not found' do
         schema '$ref' => '#/components/schemas/errors_resp'
@@ -47,12 +50,17 @@ describe 'Authors API' do
           errors: ['Resource not found']
         }
 
-        let(:author_params) { { first_name: 'John' } }
+        let(:author_params) { { first_name: 'John', last_name: 'Snow' } }
         let(:id) { 'invalid' }
 
+        before do
+          expect(Authors::UpdateService).to receive(:new).
+            with(id, action_params(author_params)).
+            and_call_original
+        end
+
         run_test! do |response|
-          data = JSON.parse(response.body)
-          expect(data['errors']).to eq(['Resource not found'])
+          expect(body_json['errors']).to eq(['Resource not found'])
         end
       end
     end
