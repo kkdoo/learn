@@ -21,8 +21,6 @@ describe 'Authors API' do
 
         example 'application/json', :example, {
           id: SecureRandom.uuid,
-          first_name: 'Bob',
-          last_name: 'Marley',
         }
 
         let(:author) { create(:author) }

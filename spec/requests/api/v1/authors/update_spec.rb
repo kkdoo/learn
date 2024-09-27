@@ -24,7 +24,7 @@ describe 'Authors API' do
         schema '$ref' => '#/components/schemas/author_entity'
 
         example 'application/json', :example, {
-          id:,
+          id: SecureRandom.uuid,
           first_name: 'Bob',
           last_name: 'Marley',
         }
