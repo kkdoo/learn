@@ -6,7 +6,7 @@ class Authors::CreateService
   def call
     Author.create!(permitted_params)
   end
-      
+
   protected
 
   def permitted_params

@@ -7,7 +7,7 @@ describe 'Authors API' do
       consumes 'application/json'
       produces 'application/json'
 
-      request_body_example value: { },
+      request_body_example value: {},
         name: 'author_list', summary: 'Success error'
 
       response '200', 'list all authors' do
@@ -18,7 +18,7 @@ describe 'Authors API' do
             id: SecureRandom.uuid,
             first_name: 'Bob',
             last_name: 'Marley',
-          }
+          },
         ]
 
         let!(:author) { create_list(:author, 2) }

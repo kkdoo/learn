@@ -11,4 +11,3 @@ end
 RSpec.configure do |config|
   config.include CoreHelpers
 end
-

@@ -12,9 +12,9 @@ describe 'Authors API' do
         type: :object,
         properties: {
           first_name: { type: :string },
-          last_name: { type: :string }
+          last_name: { type: :string },
         },
-        required: [ 'id', 'first_name', 'last_name' ]
+        required: ['id', 'first_name', 'last_name'],
       }
 
       request_body_example value: { first_name: 'Bob', last_name: 'Marley' },
@@ -47,7 +47,7 @@ describe 'Authors API' do
 
         example 'application/json', :example, {
           status: 404,
-          errors: ['Resource not found']
+          errors: ['Resource not found'],
         }
 
         let(:author_params) { { first_name: 'John', last_name: 'Snow' } }

@@ -9,7 +9,7 @@ describe 'Authors API' do
 
       parameter name: :id, in: :path, type: :string
 
-      request_body_example value: { },
+      request_body_example value: {},
         name: 'author_get', summary: 'Success error'
 
       response '200', 'find author by id' do
@@ -32,7 +32,7 @@ describe 'Authors API' do
 
         example 'application/json', :example, {
           status: 404,
-          errors: ['Resource not found']
+          errors: ['Resource not found'],
         }
 
         let(:id) { 'invalid' }

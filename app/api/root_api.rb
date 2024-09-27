@@ -4,7 +4,8 @@ class RootApi < Grape::API
   helpers do
     def declared_params
       @declared_params ||= ActionController::Parameters.new(
-        declared(params, include_missing: false))
+        declared(params, include_missing: false)
+      )
     end
   end
 
@@ -14,7 +15,7 @@ class RootApi < Grape::API
 
     errors = error.map do |attrs, message|
       attr = attrs.first
-      { name: attr, messages: [ message.to_s ] }
+      { name: attr, messages: [message.to_s] }
     end
     error!({ status: 400, errors: }, 400)
   end

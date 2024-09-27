@@ -9,15 +9,15 @@ describe 'Authors API' do
 
       parameter name: :id, in: :path, type: :string
 
-      request_body_example value: { },
+      request_body_example value: {},
         name: 'author_delete', summary: 'Successful delete'
 
       response '200', 'delete an author by id' do
         schema type: 'object',
           properties: {
-            id: { type: 'string' }
+            id: { type: 'string' },
           },
-          required: [ 'id' ]
+          required: ['id']
 
         example 'application/json', :example, {
           id: SecureRandom.uuid,
@@ -42,7 +42,7 @@ describe 'Authors API' do
 
         example 'application/json', :example, {
           status: 404,
-          errors: ['Resource not found']
+          errors: ['Resource not found'],
         }
 
         let(:id) { 'invalid' }

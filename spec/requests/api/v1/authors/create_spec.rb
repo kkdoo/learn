@@ -11,9 +11,9 @@ describe 'Authors API' do
         type: :object,
         properties: {
           first_name: { type: :string },
-          last_name: { type: :string }
+          last_name: { type: :string },
         },
-        required: [ 'first_name', 'last_name' ]
+        required: ['first_name', 'last_name'],
       }
 
       request_body_example value: { first_name: 'Bob', last_name: 'Marley' },
@@ -48,7 +48,7 @@ describe 'Authors API' do
           errors: {
             name: 'last_name',
             message: 'last_name is missing',
-          }
+          },
         }
 
         let(:author) { { first_name: 'Bob' } }

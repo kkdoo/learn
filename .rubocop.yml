@@ -17,3 +17,6 @@ AllCops:
 
 Layout/LineLength:
   Max: 120
+
+Layout/HashAlignment:
+  EnforcedLastArgumentHashStyle: ignore_implicit

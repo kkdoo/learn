@@ -19,7 +19,7 @@ RSpec.configure do |config|
       openapi: '3.0.1',
       info: {
         title: 'API V1',
-        version: 'v1'
+        version: 'v1',
       },
       components: {
         schemas: {
@@ -30,7 +30,7 @@ RSpec.configure do |config|
               first_name: { type: :string },
               last_name: { type: :string },
             },
-            required: [ 'id', 'first_name', 'last_name' ],
+            required: ['id', 'first_name', 'last_name'],
           },
           error_message: {
             type: 'object',
@@ -38,7 +38,7 @@ RSpec.configure do |config|
               name: { type: 'string' },
               messages: { type: 'array', items: { type: 'string' } },
             },
-            required: [ 'name', 'messages' ]
+            required: ['name', 'messages'],
           },
           errors_resp: {
             type: 'object',
@@ -46,14 +46,14 @@ RSpec.configure do |config|
               status: { type: 'integer' },
               errors: {
                 oneOf: [
-                  { type: 'array', items: { type: 'string' }},
-                  { type: 'array', items: { '$ref' => '#/components/schemas/error_message' }},
+                  { type: 'array', items: { type: 'string' } },
+                  { type: 'array', items: { '$ref' => '#/components/schemas/error_message' } },
                 ],
               },
             },
-            required: [ 'status', 'errors' ],
-          }
-        }
+            required: ['status', 'errors'],
+          },
+        },
       },
       paths: {},
       servers: [
@@ -61,12 +61,12 @@ RSpec.configure do |config|
           url: 'http://{defaultHost}/api',
           variables: {
             defaultHost: {
-              default: 'localhost:3000'
-            }
-          }
-        }
-      ]
-    }
+              default: 'localhost:3000',
+            },
+          },
+        },
+      ],
+    },
   }
 
   # Specify the format of the output Swagger file when running 'rswag:specs:swaggerize'.
