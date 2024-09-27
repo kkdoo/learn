@@ -9,4 +9,7 @@
 #
 class CompetencyCourse < ApplicationRecord
   self.primary_key = [:course_id, :competency_id]
+
+  belongs_to :competency
+  belongs_to :course
 end

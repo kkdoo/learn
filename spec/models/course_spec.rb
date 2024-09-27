@@ -12,5 +12,13 @@
 require 'rails_helper'
 
 RSpec.describe Course, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'associations' do
+    it { should belong_to(:author) }
+    it { should have_many(:competency_courses) }
+    it { should have_many(:competencies).through(:competency_courses).dependent(:destroy) }
+  end
+
+  describe 'validations' do
+    it { should validate_presence_of(:name) }
+  end
 end

@@ -10,5 +10,8 @@
 require 'rails_helper'
 
 RSpec.describe Competency, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'associations' do
+    it { should have_many(:competency_courses) }
+    it { should have_many(:courses).through(:competency_courses).dependent(:destroy) }
+  end
 end

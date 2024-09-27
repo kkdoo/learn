@@ -8,5 +8,6 @@
 #  updated_at :datetime         not null
 #
 class Competency < ApplicationRecord
-  belongs_to :course
+  has_many :competency_courses
+  has_many :courses, through: :competency_courses, dependent: :destroy
 end
