@@ -36,10 +36,11 @@ RSpec.configure do |config|
             type: :object,
             properties: {
               id: { type: :string },
+              author_id: { type: :string },
               name: { type: :string },
               description: { type: :string },
             },
-            required: ['id', 'first_name', 'last_name'],
+            required: ['id', 'author_id', 'name'],
           },
           error_message: {
             type: 'object',
