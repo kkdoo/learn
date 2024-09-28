@@ -2,7 +2,7 @@ require 'swagger_helper'
 
 describe 'Courses API' do
   path '/v1/courses/{id}' do
-    get 'Get a course by id' do
+    delete 'Delete a course' do
       tags 'Courses'
       consumes 'application/json'
       produces 'application/json'
@@ -10,16 +10,17 @@ describe 'Courses API' do
       parameter name: :id, in: :path, type: :string
 
       request_body_example value: {},
-        name: 'course_get', summary: 'Success error'
+        name: 'course_delete', summary: 'Successful delete'
 
-      response '200', 'find course by id' do
-        schema '$ref' => '#/components/schemas/course_entity'
+      response '200', 'delete a course by id' do
+        schema type: 'object',
+          properties: {
+            id: { type: 'string' },
+          },
+          required: ['id']
 
         example 'application/json', :example, {
           id: SecureRandom.uuid,
-          author_id: SecureRandom.uuid,
-          name: 'Web course',
-          description: 'Web course details',
         }
 
         let(:course) { create(:course) }

@@ -1,12 +1,13 @@
 require 'swagger_helper'
 
 describe 'Courses API' do
-  path '/v1/courses' do
-    post 'Creates a course' do
+  path '/v1/courses/{id}' do
+    put 'Update a course' do
       tags 'Courses'
       consumes 'application/json'
       produces 'application/json'
 
+      parameter name: :id, in: :path, type: :string
       parameter name: :course_params, in: :body, schema: {
         type: :object,
         properties: {
@@ -14,7 +15,6 @@ describe 'Courses API' do
           name: { type: :string },
           description: { type: :string },
         },
-        required: %w(author_id name),
       }
 
       request_body_example(
@@ -26,7 +26,7 @@ describe 'Courses API' do
         name: 'course_create', summary: 'Successful create'
       )
 
-      response '201', 'created a new course' do
+      response '200', 'update a course by id' do
         schema '$ref' => '#/components/schemas/course_entity'
 
         example 'application/json', :example, {
@@ -36,29 +36,28 @@ describe 'Courses API' do
           description: 'Web course details',
         }
 
-        let(:author) { create(:author) }
-        let(:course_params) { { author_id: author.id, name: 'Web course' } }
+        let(:author) { course.author }
+        let(:course) { create(:course) }
+        let(:course_params) { { name: 'Web 3.0' } }
+        let(:id) { author.id }
 
         run_test!
       end
 
-      request_body_example value: { name: 'Web course' },
-        name: 'course_missing_params', summary: 'Validation error'
-
-      response '400', 'invalid request' do
+      response '404', 'course not found' do
         schema '$ref' => '#/components/schemas/errors_resp'
 
         example 'application/json', :example, {
-          status: 400,
-          errors: {
-            name: 'author_id',
-            messages: ['is missing'],
-          },
+          status: 404,
+          errors: ['Resource not found'],
         }
 
-        let(:course_params) { { name: 'Web course' } }
+        let(:course_params) { { name: 'Web 3.0' } }
+        let(:id) { 'invalid' }
 
-        run_test!
+        run_test! do |response|
+          expect(body_json['errors']).to eq(['Resource not found'])
+        end
       end
     end
   end
