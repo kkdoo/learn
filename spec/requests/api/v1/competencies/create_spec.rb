@@ -27,9 +27,7 @@ describe 'Competencies API' do
 
         example 'application/json', :example, {
           id: SecureRandom.uuid,
-          author_id: SecureRandom.uuid,
-          name: 'Web competency',
-          description: 'Web competency details',
+          name: 'rails',
         }
 
         let(:competency_params) { { name: 'rails' } }
@@ -51,7 +49,7 @@ describe 'Competencies API' do
           },
         }
 
-        let(:competency_params) { { name: 'rails' } }
+        let(:competency_params) { { name: '' } }
 
         run_test!
       end
