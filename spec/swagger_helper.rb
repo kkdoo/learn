@@ -38,7 +38,7 @@ RSpec.configure do |config|
               id: { type: :string },
               author_id: { type: :string },
               name: { type: :string },
-              description: { type: :string },
+              description: { type: :string, nullable: true },
             },
             required: ['id', 'author_id', 'name'],
           },
