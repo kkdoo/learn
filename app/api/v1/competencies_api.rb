@@ -14,6 +14,8 @@ class V1::CompetenciesApi < Grape::API
     end
 
     get ':id' do
+      @competency = Competencies::GetService.new(params[:id]).call
+      present @competency, with: Entities::CompetencyEntity
     end
 
     get do
