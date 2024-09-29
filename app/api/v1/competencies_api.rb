@@ -22,6 +22,8 @@ class V1::CompetenciesApi < Grape::API
     end
 
     delete ':id' do
+      @competency = Competencies::DeleteService.new(params[:id]).call
+      present @competency.as_json(only: [:id]).as_json
     end
 
     put ':id' do
