@@ -19,6 +19,8 @@ class V1::CompetenciesApi < Grape::API
     end
 
     get do
+      @competencies = Competencies::ListService.new.call
+      present @competencies, with: Entities::CompetencyEntity
     end
 
     delete ':id' do
@@ -26,7 +28,12 @@ class V1::CompetenciesApi < Grape::API
       present @competency.as_json(only: [:id]).as_json
     end
 
+    params do
+      optional :name, type: String
+    end
     put ':id' do
+      @competency = Competencies::UpdateService.new(params[:id], declared_params).call
+      present @competency, with: Entities::CompetencyEntity
     end
   end
 end

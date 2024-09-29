@@ -31,8 +31,8 @@ describe 'Competencies API' do
         }
 
         let(:competency) { create(:competency) }
-        let(:competency_params) { { name: 'rails' } }
-        let(:id) { author.id }
+        let(:competency_params) { { name: 'django' } }
+        let(:id) { competency.id }
 
         run_test!
       end
