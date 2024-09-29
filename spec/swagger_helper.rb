@@ -42,6 +42,14 @@ RSpec.configure do |config|
             },
             required: ['id', 'author_id', 'name'],
           },
+          competency_entity: {
+            type: :object,
+            properties: {
+              id: { type: :string },
+              name: { type: :string },
+            },
+            required: ['id', 'name'],
+          },
           error_message: {
             type: 'object',
             properties: {

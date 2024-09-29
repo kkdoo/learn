@@ -1,6 +1,7 @@
 class RootApi < Grape::API
   mount V1::AuthorsApi => "/"
   mount V1::CoursesApi => "/"
+  mount V1::CompetenciesApi => "/"
 
   helpers do
     def declared_params

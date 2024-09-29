@@ -38,8 +38,8 @@ describe 'Courses API' do
 
         let(:author) { course.author }
         let(:course) { create(:course) }
-        let(:course_params) { { name: 'Web 3.0' } }
-        let(:id) { author.id }
+        let(:course_params) { { name: 'Web 3.0', author_id: author.id } }
+        let(:id) { course.id }
 
         run_test!
       end

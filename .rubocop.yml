@@ -8,6 +8,9 @@ inherit_from:
   - .rubocop_airbnb.yml
   - .rubocop_todo.yml
 
+inherit_gem:
+  rswag-specs: .rubocop_rspec_alias_config.yml
+
 AllCops:
   NewCops: enable
   Exclude:
