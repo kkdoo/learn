@@ -1,4 +1,4 @@
-class Competencies::DeleteService
+class Competencies::DeleteService < BaseService
   def initialize(id)
     @id = id
   end

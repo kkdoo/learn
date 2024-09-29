@@ -1,4 +1,4 @@
-class Authors::CreateService
+class Authors::CreateService < BaseService
   def initialize(params)
     @params = params
   end

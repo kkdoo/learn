@@ -1,4 +1,4 @@
-class Competencies::GetService
+class Competencies::GetService < BaseService
   def initialize(id)
     @id = id
   end

@@ -1,4 +1,4 @@
-class Authors::GetService
+class Authors::GetService < BaseService
   def initialize(id)
     @id = id
   end

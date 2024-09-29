@@ -1,4 +1,4 @@
-class Authors::DeleteService
+class Authors::DeleteService < BaseService
   def initialize(id)
     @id = id
   end

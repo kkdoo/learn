@@ -1,4 +1,4 @@
-class Competencies::ListService
+class Competencies::ListService < BaseService
   PER_PAGE = 100
 
   def initialize

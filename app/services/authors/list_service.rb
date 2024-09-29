@@ -1,4 +1,4 @@
-class Authors::ListService
+class Authors::ListService < BaseService
   PER_PAGE = 100
 
   def initialize

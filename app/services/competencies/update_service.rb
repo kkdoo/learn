@@ -1,4 +1,4 @@
-class Competencies::UpdateService
+class Competencies::UpdateService < BaseService
   def initialize(id, params)
     @id = id
     @params = params
