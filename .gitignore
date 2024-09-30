@@ -40,3 +40,5 @@
 /node_modules
 .docker/volumes/*
 swagger/**/*.yaml
+
+coverage/
