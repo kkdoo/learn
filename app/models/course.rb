@@ -11,8 +11,8 @@
 #
 class Course < ApplicationRecord
   belongs_to :author
-  has_many :competency_courses
-  has_many :competencies, through: :competency_courses, dependent: :destroy
+  has_many :competency_courses, dependent: :destroy
+  has_many :competencies, through: :competency_courses
 
   validates :name, presence: true
 end
