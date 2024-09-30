@@ -1,42 +1,12 @@
 require 'rails_helper'
+require Rails.root.join('spec/services/shared_specs/crud/update')
 
 describe Authors::UpdateService do
-  let(:service) { described_class.new(id, action_params(params)) }
-  let!(:author) { create(:author) }
+  let(:service) { described_class.new(action_params(params)) }
   let(:valid_params) { { first_name: 'John', last_name: 'Snow' } }
+  let(:invalid_params) { { first_name: 'John', last_name: '' } }
+  let!(:record) { create(:author) }
+  let(:expected_attrs) { { id: record.id, first_name: 'John', last_name: 'Snow' }.as_json }
 
-  context 'with valid params' do
-    let(:params) { valid_params }
-    let(:id) { author.id }
-
-    it 'find record and update attributes' do
-      result = service.call
-
-      expect(result.id).to eq(author.id)
-      expect(result.first_name).to eq('John')
-      expect(result.last_name).to eq('Snow')
-    end
-  end
-
-  context 'when id was invalid' do
-    let(:params) { valid_params }
-    let(:id) { 'wrong_id' }
-
-    it 'failed' do
-      expect {
-        service.call
-      }.to raise_error(ActiveRecord::RecordNotFound)
-    end
-  end
-
-  context 'when params are invalid' do
-    let(:params) { { first_name: '' } }
-    let(:id) { author.id }
-
-    it 'failed' do
-      expect {
-        service.call
-      }.to raise_error(ActiveRecord::RecordInvalid)
-    end
-  end
+  it_behaves_like 'update service'
 end
