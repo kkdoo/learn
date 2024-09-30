@@ -8,6 +8,7 @@ class V1::CoursesApi < Grape::API
     params do
       requires :author_id, type: String
       requires :name, type: String
+      requires :competencies, type: Array[String]
       optional :description, type: String
     end
     post do

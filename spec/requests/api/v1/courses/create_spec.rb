@@ -13,8 +13,9 @@ describe 'Courses API' do
           author_id: { type: :string },
           name: { type: :string },
           description: { type: :string },
+          competencies: { type: :array, items: { type: :string } },
         },
-        required: %w(author_id name),
+        required: %w(author_id name competencies),
       }
 
       request_body_example(
@@ -22,6 +23,7 @@ describe 'Courses API' do
           author_id: 'place-author-id-here',
           name: 'Web course',
           description: 'Web course details',
+          competencies: %w(ruby rails sidekiq),
         },
         name: 'course_create', summary: 'Successful create'
       )
@@ -34,10 +36,17 @@ describe 'Courses API' do
           author_id: SecureRandom.uuid,
           name: 'Web course',
           description: 'Web course details',
+          competencies: %w(ruby rails sidekiq),
         }
 
         let(:author) { create(:author) }
-        let(:course_params) { { author_id: author.id, name: 'Web course' } }
+        let(:course_params) {
+          {
+            author_id: author.id,
+            name: 'Web course',
+            competencies: %w(ruby rails sidekiq),
+          }
+        }
 
         run_test!
       end
