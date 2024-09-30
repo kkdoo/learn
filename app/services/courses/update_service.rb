@@ -31,7 +31,7 @@ class Courses::UpdateService < BaseService
     pending_add = new_list - old_list
 
     remove_competencies(pending_delete)
-    create_competencies(pending_add)
+    Competencies::CreateForCourseService.new(@course, pending_add).call
   end
 
   def find_competencies(list)
@@ -41,17 +41,6 @@ class Courses::UpdateService < BaseService
 
   def remove_competencies(list)
     find_competencies(list).destroy_all
-  end
-
-  def create_competency(name)
-    competency = Competency.find_or_create_by!(name:)
-    @course.competency_courses.create!(competency_id: competency.id)
-  end
-
-  def create_competencies(list)
-    list.each do |name|
-      create_competency(name)
-    end
   end
 
   def permitted_params

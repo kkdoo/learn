@@ -13,18 +13,18 @@ class Courses::CreateService < BaseService
     raise EmptyCompetencies unless @params[:competencies].presence
 
     ActiveRecord::Base.transaction do
-      @course = @author.courses.create!(permitted_params)
-      @competencies_list = @params[:competencies]
-      @competencies_list.each do |name|
-        competency = Competency.find_or_create_by!(name:)
-        @course.competency_courses.create!(competency_id: competency.id)
-      end
+      create_course
+      Competencies::CreateForCourseService.new(@course, @params[:competencies]).call
     end
 
     @course
   end
 
   protected
+
+  def create_course
+    @course = @author.courses.create!(permitted_params)
+  end
 
   def permitted_params
     @permitted_params ||= @params.permit(:name, :description)
