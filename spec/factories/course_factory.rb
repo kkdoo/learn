@@ -14,5 +14,14 @@ FactoryBot.define do
     name { 'Web course' }
     description { 'Some web course details' }
     author
+
+    factory :course_with_competencies do
+      after(:create) do |course|
+        %w(ruby rails sidekiq).each do |name|
+          competency = Competency.find_or_create_by(name:)
+          course.competency_courses.create!(competency_id: competency.id)
+        end
+      end
+    end
   end
 end
