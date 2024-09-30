@@ -14,8 +14,8 @@ require 'rails_helper'
 RSpec.describe Course, type: :model do
   describe 'associations' do
     it { should belong_to(:author) }
-    it { should have_many(:competency_courses) }
-    it { should have_many(:competencies).through(:competency_courses).dependent(:destroy) }
+    it { should have_many(:competency_courses).dependent(:destroy) }
+    it { should have_many(:competencies).through(:competency_courses) }
   end
 
   describe 'validations' do
