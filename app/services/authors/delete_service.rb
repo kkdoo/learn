@@ -4,6 +4,8 @@ class Authors::DeleteService < BaseService
   end
 
   def call
-    Author.find(@id)
+    @author = Author.find(@id)
+    @author.destroy
+    @author
   end
 end
