@@ -5,9 +5,9 @@ RSpec.shared_examples 'delete service' do
     let(:id) { valid_id }
 
     it 'will successfully delete record' do
-      expect {
+      expect do
         service.call
-      }.to change { model.count }.by(-1)
+      end.to change { model.count }.by(-1)
     end
 
     it 'return record in response' do
@@ -21,9 +21,9 @@ RSpec.shared_examples 'delete service' do
     it 'will raise error and not delete records' do
       initial_count = model.count
 
-      expect {
+      expect do
         service.call
-      }.to raise_error(ActiveRecord::RecordNotFound)
+      end.to raise_error(ActiveRecord::RecordNotFound)
 
       expect(model.count).to eq(initial_count)
     end

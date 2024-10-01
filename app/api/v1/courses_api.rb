@@ -15,7 +15,7 @@ class V1::CoursesApi < Grape::API
       @course = Courses::CreateService.new(declared_params).call
       present @course, with: Entities::CourseEntity
     rescue Courses::CreateService::UnknownAuthor
-      error!({ status: 400, errors: [{name: 'author_id', message: 'is invalid'}] }, 400)
+      error!({ status: 400, errors: [{ name: 'author_id', message: 'is invalid' }] }, 400)
     end
 
     get ':id' do

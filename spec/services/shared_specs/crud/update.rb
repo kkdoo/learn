@@ -20,9 +20,9 @@ RSpec.shared_examples 'update service' do
     let(:id) { 'wrong_id' }
 
     it 'failed' do
-      expect {
+      expect do
         service.call
-      }.to raise_error(ActiveRecord::RecordNotFound)
+      end.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 
@@ -31,9 +31,9 @@ RSpec.shared_examples 'update service' do
     let(:id) { record.id }
 
     it 'failed' do
-      expect {
+      expect do
         service.call
-      }.to raise_error(ActiveRecord::RecordInvalid)
+      end.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
 end

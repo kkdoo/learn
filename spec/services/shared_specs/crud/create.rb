@@ -5,9 +5,9 @@ RSpec.shared_examples 'create service' do
     let(:params) { valid_params }
 
     it 'success' do
-      expect {
+      expect do
         service.call
-      }.to change { model.count }.by(1)
+      end.to change { model.count }.by(1)
     end
 
     it 'return competency in response' do
@@ -19,9 +19,9 @@ RSpec.shared_examples 'create service' do
     let(:params) { invalid_params }
 
     it 'failed' do
-      expect {
+      expect do
         service.call
-      }.to raise_error(ActiveRecord::RecordInvalid)
+      end.to raise_error(ActiveRecord::RecordInvalid)
 
       expect(model.count).to eq(0)
     end

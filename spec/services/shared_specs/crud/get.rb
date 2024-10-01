@@ -13,9 +13,9 @@ RSpec.shared_examples 'get service' do
     let(:id) { 'wrong_id' }
 
     it 'will raise error' do
-      expect {
+      expect do
         service.call
-      }.to raise_error(ActiveRecord::RecordNotFound)
+      end.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 end

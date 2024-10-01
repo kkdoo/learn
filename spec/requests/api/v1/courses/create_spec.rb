@@ -40,13 +40,13 @@ describe 'Courses API' do
         }
 
         let(:author) { create(:author) }
-        let(:course_params) {
+        let(:course_params) do
           {
             author_id: author.id,
             name: 'Web course',
             competencies: %w(ruby rails sidekiq),
           }
-        }
+        end
 
         run_test!
       end

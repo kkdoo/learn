@@ -14,9 +14,9 @@ describe Courses::UpdateService do
 
       it 'updates competencies' do
         result = nil
-        expect {
+        expect do
           result = service.call
-        }.to change { Competency.count }.by(2)
+        end.to change { Competency.count }.by(2)
 
         expect(result.competencies.pluck(:name).sort).to eq(competencies)
       end
@@ -30,9 +30,9 @@ describe Courses::UpdateService do
 
       it 'updates competencies' do
         result = nil
-        expect {
+        expect do
           result = service.call
-        }.to change { Competency.count }.by(2)
+        end.to change { Competency.count }.by(2)
 
         expect(result.competencies.pluck(:name).sort).to eq(competencies)
       end

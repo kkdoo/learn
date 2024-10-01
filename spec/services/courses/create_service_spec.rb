@@ -20,9 +20,9 @@ describe Courses::CreateService do
     shared_examples 'create course and competencies' do
       it 'create course with author and competencies' do
         result = nil
-        expect {
+        expect do
           result = service.call
-        }.to change { Course.count }.by(1)
+        end.to change { Course.count }.by(1)
 
         expect(result.author_id).to eq(author.id)
         expect(result.name).to eq('Web course')
@@ -31,9 +31,9 @@ describe Courses::CreateService do
       end
 
       it 'create new competencies and assign them to course' do
-        expect {
+        expect do
           service.call
-        }.to change { Competency.count }.by(competentions_created_times)
+        end.to change { Competency.count }.by(competentions_created_times)
       end
     end
 
