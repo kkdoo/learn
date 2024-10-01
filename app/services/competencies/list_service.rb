@@ -1,10 +1,11 @@
 class Competencies::ListService < BaseService
   PER_PAGE = 100
 
-  def initialize
+  def initialize(params)
+    @params = params
   end
 
   def call
-    Competency.last(PER_PAGE)
+    Competency.page(@params[:page] || 1).per(@params[:per_page] || PER_PAGE)
   end
 end

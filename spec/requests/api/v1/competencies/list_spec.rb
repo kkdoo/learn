@@ -7,6 +7,9 @@ describe 'Competencies API' do
       consumes 'application/json'
       produces 'application/json'
 
+      parameter name: :per_page, in: :query, type: :integer
+      parameter name: :page, in: :query, type: :integer
+
       request_body_example value: {},
         name: 'competencies_list', summary: 'Success error'
 
@@ -19,6 +22,8 @@ describe 'Competencies API' do
         }
 
         let!(:competency) { create_list(:competency, 2) }
+        let(:per_page) { nil }
+        let(:page) { nil }
 
         run_test! do |response|
           expect(body_json.count).to eq(2)

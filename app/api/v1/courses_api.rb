@@ -24,7 +24,7 @@ class V1::CoursesApi < Grape::API
     end
 
     get do
-      @courses = Courses::ListService.new.call
+      @courses = Courses::ListService.new(params).call
       present @courses, with: Entities::CourseEntity
     end
 

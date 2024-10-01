@@ -19,8 +19,12 @@ class V1::AuthorsApi < Grape::API
       present @author, with: Entities::AuthorEntity
     end
 
+    params do
+      optional :per_page, type: Integer
+      optional :page, type: Integer
+    end
     get do
-      @authors = Authors::ListService.new.call
+      @authors = Authors::ListService.new(declared_params).call
       present @authors, with: Entities::AuthorEntity
     end
 

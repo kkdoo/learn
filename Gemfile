@@ -66,3 +66,4 @@ gem 'grape'
 gem 'grape-entity'
 # not part of ruby 3.3.5 (required by rswag)
 gem 'ostruct'
+gem 'kaminari'

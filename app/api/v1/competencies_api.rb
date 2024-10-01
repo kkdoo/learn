@@ -18,8 +18,12 @@ class V1::CompetenciesApi < Grape::API
       present @competency, with: Entities::CompetencyEntity
     end
 
+    params do
+      optional :per_page, type: Integer
+      optional :page, type: Integer
+    end
     get do
-      @competencies = Competencies::ListService.new.call
+      @competencies = Competencies::ListService.new(declared_params).call
       present @competencies, with: Entities::CompetencyEntity
     end
 
