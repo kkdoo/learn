@@ -6,6 +6,7 @@ yarn install
 
 ./bin/rails db:prepare
 ./bin/rake db:migrate db:seed
+./bin/rails rswag:specs:swaggerize
 
 if [ "${RAILS_ENV}" == "production" ]; then
   bundle exec rails assets:precompile
