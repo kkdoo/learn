@@ -18,14 +18,14 @@ RSpec.shared_examples 'delete service' do
   context 'with invalid id' do
     let(:id) { invalid_id }
 
-    it 'will raise error' do
-      expect(model.count).to eq(1)
+    it 'will raise error and not delete records' do
+      initial_count = model.count
 
       expect {
         service.call
       }.to raise_error(ActiveRecord::RecordNotFound)
 
-      expect(model.count).to eq(1)
+      expect(model.count).to eq(initial_count)
     end
   end
 end

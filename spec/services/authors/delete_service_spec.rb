@@ -8,5 +8,18 @@ describe Authors::DeleteService do
   let(:model) { Author }
   let!(:record) { create(:author) }
 
-  it_behaves_like 'delete service'
+  context 'when we have more than two authors' do
+    let!(:another_author) { create(:author, first_name: 'John') }
+
+    it_behaves_like 'delete service'
+
+    # TODO: will add these specs soon
+    it 'author for all courses will be replaced with new author'
+    it 'old author will be deleted'
+  end
+
+  context 'when delete last author' do
+    # TODO: will add these specs soon
+    it 'raised error LastAuthorUndeletable'
+  end
 end

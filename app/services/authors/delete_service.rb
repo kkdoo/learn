@@ -22,6 +22,6 @@ class Authors::DeleteService < BaseService
   protected
 
   def new_author
-    @new_author ||= Author.order('RANDOM()').take
+    @new_author ||= Author.where.not(id: @author.id).order('RANDOM()').take
   end
 end
