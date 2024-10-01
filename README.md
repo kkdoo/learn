@@ -1,24 +1,43 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Installation
 
-Things you may want to cover:
+1) Copy .env example
 
-* Ruby version
+```bash
+cp .env.example .env
+```
 
-* System dependencies
+2) Build image
 
-* Configuration
+```bash
+docker compose build
+```
 
-* Database creation
+3) Run rails dev server
 
-* Database initialization
+```bash
+docker compose up
+```
 
-* How to run the test suite
+4) Open swagger generated docs http://localhost:3000/api-docs/
 
-* Services (job queues, cache servers, search engines, etc.)
+## Run specs
 
-* Deployment instructions
+- Open terminal in docker
 
-* ...
+```bash
+docker compose run --rm core bash
+```
+
+- Run specs
+
+```bash
+bin/rspec
+```
+
+- Run specs with simplecov report
+
+```bash
+COV=1 bin/rspec
+```
