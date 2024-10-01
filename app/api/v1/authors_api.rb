@@ -29,7 +29,10 @@ class V1::AuthorsApi < Grape::API
     end
 
     delete ':id' do
-      @author = Authors::DeleteService.new(params[:id]).call
+      @author = Author.find(params[:id])
+
+      DeleteAuthorJob.perform_async(@author.id)
+
       present @author.as_json(only: [:id]).as_json
     end
 

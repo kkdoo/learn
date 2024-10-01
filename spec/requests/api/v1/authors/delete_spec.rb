@@ -26,12 +26,9 @@ describe 'Authors API' do
         let(:author) { create(:author) }
         let(:id) { author.id }
 
-        before do
-          expect(Authors::DeleteService).to receive(:new).with(id).
-            and_call_original
+        run_test! do
+          expect(DeleteAuthorJob).to have_enqueued_sidekiq_job(id)
         end
-
-        run_test!
       end
 
       request_body_example value: { first_name: 'Bob' },
@@ -47,12 +44,9 @@ describe 'Authors API' do
 
         let(:id) { 'invalid' }
 
-        before do
-          expect(Authors::DeleteService).to receive(:new).with(id).
-            and_call_original
-        end
-
         run_test! do |response|
+          expect(DeleteAuthorJob).to_not have_enqueued_sidekiq_job
+
           data = JSON.parse(response.body)
           expect(data['errors']).to eq(['Resource not found'])
         end
